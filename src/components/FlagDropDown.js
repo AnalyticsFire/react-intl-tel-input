@@ -18,6 +18,7 @@ class FlagDropDown extends Component {
     highlightedCountry: PropTypes.number,
     changeHighlightCountry: PropTypes.func,
     actions: PropTypes.object,
+    tabIndex: PropTypes.number,
   };
 
   render() {
@@ -43,7 +44,8 @@ class FlagDropDown extends Component {
 
     return (
       <div className="flag-dropdown">
-        <div className="selected-flag" tabIndex="0"
+        <div className="selected-flag"
+          tabIndex={this.props.tabIndex}
           onClick={this.props.clickSelectedFlag}
           onKeyDown={this.props.handleSelectedFlagKeydown}
           title={titleTip}

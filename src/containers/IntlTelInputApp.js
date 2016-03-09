@@ -44,6 +44,8 @@ class IntlTelInputApp extends Component {
     utilsScript: '',
     onPhoneNumberChange: null,
     onSelectFlag: null,
+    flagTabIndex: null,
+    inputTabIndex: null,
   };
 
   static propTypes = {
@@ -71,6 +73,8 @@ class IntlTelInputApp extends Component {
     dispatch: PropTypes.func,
     intlTelInputData: PropTypes.object,
     countryCode: PropTypes.string,
+    flagTabIndex: PropTypes.number,
+    inputTabIndex: PropTypes.number,
   };
 
   constructor(props) {
@@ -904,16 +908,17 @@ class IntlTelInputApp extends Component {
     this.updateDialCode(this.selectedCountryData.dialCode, true);
 
     // focus the input
-    if (setFocus) {
-      findDOMNode(this.refs.telInput).focus();
-    }
+    // if (setFocus) {
+    //   console.log('setFocus is true');
+    //   findDOMNode(this.refs.telInput).focus();
+    // }
 
     // fix for FF and IE11 (with nationalMode=false i.e. auto inserting dial code),
     // who try to put the cursor at the beginning the first time
-    if (this.isGoodBrowser) {
-      const len = this.props.intlTelInputData.telInput.value.length;
-      findDOMNode(this.refs.telInput).setSelectionRange(len, len);
-    }
+    // if (this.isGoodBrowser) {
+    //   const len = this.props.intlTelInputData.telInput.value.length;
+    //   findDOMNode(this.refs.telInput).setSelectionRange(len, len);
+    // }
 
     // Allow Main app to do things when a country is selected
     if (typeof this.props.onSelectFlag === 'function') {
@@ -1068,6 +1073,7 @@ class IntlTelInputApp extends Component {
           inputOuterHeight={intlTelInputData.telInput.outerHeight}
           preferredCountries={this.preferredCountries}
           highlightedCountry={intlTelInputData.countryList.highlightedCountry}
+          tabIndex={this.props.flagTabIndex}
         />
         <TelInput ref="telInput"
           actions={actions}
@@ -1079,6 +1085,7 @@ class IntlTelInputApp extends Component {
           readonly={intlTelInputData.telInput.readonly}
           fieldName={this.props.fieldName}
           value={intlTelInputData.telInput.value}
+          tabIndex={this.props.inputTabIndex}
         />
       </div>
     );

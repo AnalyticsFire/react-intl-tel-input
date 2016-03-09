@@ -11,6 +11,7 @@ class TelInput extends Component {
     handleKeyPress: PropTypes.func,
     handleKeyUp: PropTypes.func,
     actions: PropTypes.object,
+    tabIndex: PropTypes.number,
   };
 
   constructor() {
@@ -25,6 +26,7 @@ class TelInput extends Component {
   render() {
     return (
       <input type="tel" autoComplete="off"
+        tabIndex={this.props.tabIndex}
         className={this.props.className}
         disabled={this.props.disabled ? 'disabled' : false}
         readOnly={this.props.readonly ? 'readonly' : false}
