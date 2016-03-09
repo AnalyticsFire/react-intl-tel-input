@@ -1,6 +1,6 @@
 {
   "name": "@icracked/react-intl-tel-input",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "description": "Rewrite intl-tel-input in React.",
   "author": "patw",
   "keywords": [
