@@ -35,6 +35,7 @@ class IntlTelInput extends Component {
     preferredCountries: PropTypes.arrayOf(PropTypes.string),
     utilsScript: PropTypes.string,
     onPhoneNumberChange: PropTypes.func,
+    onPhoneNumberBlur: PropTypes.func,
     onSelectFlag: PropTypes.func,
   }
 
@@ -49,6 +50,7 @@ class IntlTelInput extends Component {
           defaultValue={this.props.defaultValue}
           disabled={this.props.disabled}
           onPhoneNumberChange={this.props.onPhoneNumberChange}
+          onPhoneNumberBlur={this.props.onPhoneNumberBlur}
           onSelectFlag={this.props.onSelectFlag}
           css={this.props.css}
           fieldName={this.props.fieldName}

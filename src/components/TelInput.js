@@ -8,14 +8,15 @@ class TelInput extends Component {
     fieldName: PropTypes.string,
     value: PropTypes.string,
     handleInputChange: PropTypes.func,
+    handleInputBlur: PropTypes.func,
     handleKeyPress: PropTypes.func,
     handleKeyUp: PropTypes.func,
     actions: PropTypes.object,
     tabIndex: PropTypes.number,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.onChange = this.onChange.bind(this);
   }
 
@@ -23,15 +24,19 @@ class TelInput extends Component {
     this.props.handleInputChange.call(this);
   }
 
+
   render() {
     return (
-      <input type="tel" autoComplete="off"
+      <input
+        type="tel"
+        autoComplete="off"
         tabIndex={this.props.tabIndex}
         className={this.props.className}
         disabled={this.props.disabled ? 'disabled' : false}
         readOnly={this.props.readonly ? 'readonly' : false}
         name={this.props.fieldName}
         value={this.props.value}
+        onBlur={this.props.handleInputBlur}
         onChange={this.onChange}
         onKeyPress={this.props.handleKeyPress}
         onKeyUp={this.props.handleKeyUp}

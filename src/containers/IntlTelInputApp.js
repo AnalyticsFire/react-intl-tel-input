@@ -42,7 +42,8 @@ class IntlTelInputApp extends Component {
     preferredCountries: ['us', 'gb'],
     // specify the path to the libphonenumber script to enable validation/formatting
     utilsScript: '',
-    onPhoneNumberChange: null,
+    eNumberChange: null,
+    onPhoneNumberBlur: () => {},
     onSelectFlag: null,
     flagTabIndex: null,
     inputTabIndex: null,
@@ -68,6 +69,7 @@ class IntlTelInputApp extends Component {
     preferredCountries: PropTypes.arrayOf(PropTypes.string),
     utilsScript: PropTypes.string,
     onPhoneNumberChange: PropTypes.func,
+    onPhoneNumberBlur: PropTypes.func,
     onSelectFlag: PropTypes.func,
     disabled: PropTypes.bool,
     dispatch: PropTypes.func,
@@ -122,6 +124,7 @@ class IntlTelInputApp extends Component {
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleUpDownKey = this.handleUpDownKey.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputOnBlur = this.handleInputOnBlur.bind(this);
     this.changeHighlightCountry = this.changeHighlightCountry.bind(this);
 
     this.tempCountry = this.getTempCountry(this.props.defaultCountry);
@@ -1041,6 +1044,15 @@ class IntlTelInputApp extends Component {
       intlTelInputActions.handleInputChange(findDOMNode(this.refs.telInput).value));
   }
 
+  handleInputOnBlur() {
+    const newNumber = findDOMNode(this.refs.telInput).value;
+    if (typeof this.props.onPhoneNumberBlur === 'function') {
+      const result = this.isValidNumber(newNumber);
+      this.props.onPhoneNumberBlur(
+        result, newNumber, this.selectedCountryData, this.getNumber(newNumber), this.props.id);
+    }
+  }
+
   changeHighlightCountry(showDropdown, selectedIndex) {
     this.dispatch(
       intlTelInputActions.changeHighlightCountry(showDropdown, selectedIndex));
@@ -1075,11 +1087,13 @@ class IntlTelInputApp extends Component {
           highlightedCountry={intlTelInputData.countryList.highlightedCountry}
           tabIndex={this.props.flagTabIndex}
         />
-        <TelInput ref="telInput"
+        <TelInput
+          ref="telInput"
           actions={actions}
           handleKeyUp={this.handleKeyUp}
           handleKeyPress={this.handleKeyPress}
           handleInputChange={this.handleInputChange}
+          handleInputBlur={this.handleInputOnBlur}
           className={inputClass}
           disabled={intlTelInputData.telInput.disabled}
           readonly={intlTelInputData.telInput.readonly}

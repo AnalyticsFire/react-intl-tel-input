@@ -74,7 +74,7 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loader: 'uglify!babel'
+      loader: 'uglify!babel-loader'
     }, {
       test: /\.scss/,
       loader: ExtractTextPlugin.extract('style', 'css!sass?outputStyle=expanded')
